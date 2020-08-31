@@ -1,5 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
 * Calculating Total Working Hour,Day And Total Wages
@@ -10,12 +12,14 @@ import java.util.ArrayList;
 	 void computeEmpWage();
 	}
 
-public class EmployeeWage implements Employee{
+	public class EmployeeWage implements Employee{
 
    private List<Company>companies;
+	private Map<String,Integer>companyWages;
 
 	public EmployeeWage() {
 		companies = new ArrayList<Company>();
+		companyWages=new HashMap<String,Integer>();
 	}
 
 	public static void main(String[] args) {
@@ -36,14 +40,16 @@ public class EmployeeWage implements Employee{
 
 	@Override
 	public void computeEmpWage(){
-
-		System.out.println("Called computeEmpWage --->"+list);
+		System.out.println("Called computeEmpWage --->");
 		for(int i = 0; i< companies.size(); i++){
 			final Company company=companies.get(i);
 			final int totalWage=computeEmpWage(company);
 			company.setTotalEmpWage(totalWage);
-		   System.out.println(company);
+		   companyWages.put(company.getName(),totalWage);
+	   }
+		System.out.println("Stored values in Map : "+companyWages.toString());
 	}
+
 	/**
 	 * calculate total employee wages
 	 * @param company The Company
@@ -57,12 +63,10 @@ public class EmployeeWage implements Employee{
 		int totalWorkingDays = 0;
 		while(totalEmpHrs < company.getMaxHrsInMonth() && totalWorkingDays< company.getNumOfWorkingDays()){
 			totalWorkingDays++;
-
 			final int empHrs = getEmpHrs();
 			final int empWage = empHrs*company.getEmpRate();
 			totalEmpHrs+=empHrs;
 			totalWage+=empWage;
-			//System.out.println("Emp DAY : "+totalWorkingDays+" wages : "+empWage);
 		}
 		return totalWage;
 	}
@@ -84,14 +88,13 @@ public class EmployeeWage implements Employee{
 
 			case isFullTime:
 				empHrs = 8;
-				//System.out.println("Emp is present for full time.");
 				break;
+
 			case isPartTime:
 				empHrs = 4;
-				//System.out.println("Emp is present for part time.");
 				break;
+
 			default:
-				//System.out.println("Emp is absent");
 				break;
 		}
 		return empHrs;
