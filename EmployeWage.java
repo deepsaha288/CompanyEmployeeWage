@@ -47,11 +47,11 @@ public class EmployeeWage
 					break;
 
 				case absent:
-            	employeeHour = 0;
-                break;
+            	                       employeeHour = 0;
+                                            break;
 
 				 default:
-					System.out.println("invalid choice");
+			      System.out.println("invalid choice");
 			}
 
 		//calculated total employee hour
