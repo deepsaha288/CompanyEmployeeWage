@@ -1,8 +1,8 @@
 /**
- *
- * @author DEEP
+  @author DEEP
  */
 import java.util.Scanner;
+
 public class EmployeeWage {
     //VARIABLES
 	private String companyName;
