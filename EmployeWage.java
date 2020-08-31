@@ -1,48 +1,55 @@
-interface Employee{
-	 public void addCompany(final String name, final int empRate, final int numOfWorkingDays, final int maxHrsInMonth);
-	 public int getEmpHrs()
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+* Calculating Total Working Hour,Day And Total Wages
+*/
+
+ interface Employee{
+	 void addCompany(final String name, final int empRate, final int numOfWorkingDays, final int maxHrsInMonth);
+	 void computeEmpWage();
 	}
 
 public class EmployeeWage implements Employee{
-	private int noOfCompany = 0;
-	private Company [] companies;
+
+   private List<Company>companies;
 
 	public EmployeeWage() {
-		companies = new Company[5];
+		companies = new ArrayList<Company>();
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Starting...");
 		final Employee empBuilder = new EmployeeWage();
-		empBuilder.addCompany("Accenture", 20, 20, 100);
+	   empBuilder.addCompany("Accenture", 20, 20, 100);
 		empBuilder.addCompany("IBM", 20, 18, 110);
 		empBuilder.addCompany("Dell", 20, 18, 110);
-
 		empBuilder.computeEmpWage();
 	}
 
-	public void addCompany(final String name, final int empRate, final int numOfWorkingDays, final int maxHrsInMonth){
+	@Override
+	public void addCompany( String name,  int empRate,  int numOfWorkingDays,  int maxHrsInMonth){
 		System.out.println("Called add company function with name : "+ name);
-		companies[noOfCompany] = new Company(name, empRate, numOfWorkingDays, maxHrsInMonth);
-		noOfCompany++;
+		companies.add(new Company(name, empRate, numOfWorkingDays, maxHrsInMonth));
 	}
 
 
-	private void computeEmpWage(){
+	@Override
+	public void computeEmpWage(){
 
-		System.out.println("Called computeEmpWage --->");
-		for(int i = 0; i< noOfCompany; i++){
-			final int totalWage = computeEmpWage(companies[i]);
-			companies[i].setTotalEmpWage(totalWage);
-			System.out.println(companies[i]);
-		}
-
+		System.out.println("Called computeEmpWage --->"+list);
+		for(int i = 0; i< companies.size(); i++){
+			final Company company=companies.get(i);
+			final int totalWage=computeEmpWage(company);
+			company.setTotalEmpWage(totalWage);
+		   System.out.println(company);
 	}
 	/**
 	 * calculate total employee wages
 	 * @param company The Company
 	 * @return total employee wages.
 	 */
+
 	private int computeEmpWage(final Company company) {
 		System.out.println("Calculating company wage for company : " + company.getName());
 		int totalWage = 0;
@@ -61,7 +68,7 @@ public class EmployeeWage implements Employee{
 	}
 
 	/**
-	 * Get employee hours. 
+	 * Get employee hours.
 	 * @return employee hrs
 	 */
 	public int getEmpHrs() {
@@ -90,7 +97,7 @@ public class EmployeeWage implements Employee{
 		return empHrs;
 	}
 
-	
+
 }
 
 /**
@@ -104,11 +111,13 @@ class Company {
 	private int maxHrsInMonth;
 	private int totalEmpWage;
 
+
 	public Company(final String name, final int empRate, final int numOfWorkingDays, final int maxHrsInMonth){
 		this.name = name;
 		this.empRate = empRate;
 		this.numOfWorkingDays = numOfWorkingDays;
 		this.maxHrsInMonth = maxHrsInMonth;
+
 	}
 
 	public String getName(){
