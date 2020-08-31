@@ -1,7 +1,9 @@
-/**
-* Calculating Total Working Hour,Day And Total Wages
-*/
-public class EmployeeWage{
+interface Employee{
+	 public void addCompany(final String name, final int empRate, final int numOfWorkingDays, final int maxHrsInMonth);
+	 public int getEmpHrs()
+	}
+
+public class EmployeeWage implements Employee{
 	private int noOfCompany = 0;
 	private Company [] companies;
 
@@ -11,7 +13,7 @@ public class EmployeeWage{
 
 	public static void main(String[] args) {
 		System.out.println("Starting...");
-		final EmployeeWage empBuilder = new EmployeeWage();
+		final Employee empBuilder = new EmployeeWage();
 		empBuilder.addCompany("Accenture", 20, 20, 100);
 		empBuilder.addCompany("IBM", 20, 18, 110);
 		empBuilder.addCompany("Dell", 20, 18, 110);
